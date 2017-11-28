@@ -1,6 +1,6 @@
 # Derefind &mdash; Refind Bookmark Converter
 
-This JavaScript application processes your [Refind](https://refind.com) export file on your computer. It creates an output file that can be imported to [Shaari](https://github.com/shaarli/Shaarli/blob/master/README.md) and [Diigo](https://www.diigo.com/) with the tags preserved. It processes files locally, not on any server.
+This JavaScript application processes your [Refind](https://refind.com) export file on your computer. It creates an output file that can be imported to [Shaarli](https://github.com/shaarli/Shaarli/blob/master/README.md) and [Diigo](https://www.diigo.com/) with the tags preserved. It processes files locally, not on any server.
 
  ## How To Use It 
 
@@ -12,7 +12,7 @@ Tested on Chrome 62. I expect it will work on the major browsers released in 201
 
 ## Refind Export Problem
 
-When Refind exports your bookmarks, it does it per tag. This means if you tag a bookmark with multiple tags, it will appear multiple times. This caused Shaari to report that some items were skipped or overwritten. (I am unsure if this means tags were lost.) When I tried to import it to Diigo, it was rejected (all links skipped).
+When Refind exports your bookmarks, it does it per tag. This means if you tag a bookmark with multiple tags, it will appear multiple times. This caused Shaarli to report that some items were skipped or overwritten. (I am unsure if this means tags were lost.) When I tried to import it to Diigo, it was rejected (all links skipped).
 
 The standard tag export as used by Del.icio.us is to list all link sequentially and have each link (HTML `a` tag) have a parameter listing tags. Refind instead uses the Netscape bookmark folder/category method of listing the tag after an HTML `h3` tag. It also has other differences such as closing tags Del.icio.us doesn't close.
 
@@ -32,4 +32,4 @@ I threw this together when I became tired of Refind's limitations, and my import
 
 Refind makes a great core product. And they are rolling out more and more features. I find it's not useful to keep bookmarks and notes. Comments are great. But when looking at a page or bookmark, you can't tell if you have comments or not.
 
-I didn't find it as useful as a repository of bookmarks and comments as Shaari or Diigo.
+I didn't find it as useful as a repository of bookmarks and comments as Shaarli or Diigo.
