@@ -1,10 +1,10 @@
-#Derefind &mdash; Refind Bookmark Converter
+# Derefind &mdash; Refind Bookmark Converter
 
-This JavaScript application processes your Refind export file on your computer. It creates an output file that can be imported to Diigo and Shaari with the tags preserved. It processes files locally, not on any server.
+This JavaScript application processes your [Refind](https://refind.com) export file on your computer. It creates an output file that can be imported to [Shaari](https://github.com/shaarli/Shaarli/blob/master/README.md) and [Diigo](https://www.diigo.com/) with the tags preserved. It processes files locally, not on any server.
 
  ## How To Use It 
 
-Use it on [this demo server](http://partialsolution.ca/derefind/) or simply [download the ZIP from GitHub open the `index.html` file on your computer](https://github.com/ShawnPConroy/Derefind). (On the GitHub page it's the green button on the left.)
+Use it on [this demo server](http://partialsolution.ca/derefind/) or simply [download the latest source code ZIP from GitHub open the `index.html` file on your computer](https://github.com/ShawnPConroy/Derefind/releases).
 
 ## Requirements
 
@@ -22,8 +22,7 @@ This script loads the Refind file, pulls out all elements sequentially, and iter
 
 Finally, it generates the output and prompts you to save the file on your computer. The entire JavaScript application runs on your local computer and does not transmit any data.
 
-I played around with the idea of using the ULR for the name of links without names in the file.
-I decided to leave them. Some services may find the name and auto-add? But Diigo gives them the name 'unnamed', which can be corrected after a quick search.
+I played around with the idea of using the ULR for the name of links without names in the file. I decided to leave them. Some services may find the name and auto-add? But Diigo gives them the name 'unnamed', which can be corrected after a quick search.
 
 ## Contributing
 
