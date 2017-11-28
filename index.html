@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Derefind &mdash; Refind Bookmark Converter</title>
+    <meta name="description" content="Leaving Refind? Fix the export file to work with Shaari or Diigo.">
+    <script type="text/javascript" src="FileSave.js"></script>
+    <link type="text/css" rel="stylesheet" href="style.css" >
+  </head>
+  
+  <body>
+    <div id="wrapper">
+      <h1>Derefind &mdash; Refind Bookmark Converter</h1>
+      
+      <p>This JavaScript application processes your Refind export file on your computer. It creates an output file that can be imported to Diigo and Shaari with the tags preserved. It processes files locally, not on any server. <a href="https://github.com/ShawnPConroy/Derefind">Find out more about this application</a>.</p>
+      
+      <p><strong>Instructions</strong>: Select the file below. It will automatically process the file and start a download of the result.
+      It should take 1-10 second, unless you have several hundred or thousands of bookmarks to be processed. Please note that the download will
+      start automatically.</p>
+      
+      <p>After you have downloaded your Refind export, user the file input below to select your file.</p>
+      
+      <input type="file" id="fileInput" name="file" />  
+    </div>
+    <script>
+      // Skim file, pull out tags groups (h3) and bookmark (a) elements/nodes
+      function processTags(tag) {
+      var output = document.getElementById('newExport');
+      var currentTags = "";
+      var bookmarks={};
+
+      // Skip first two elements, which are an error for some reason.
+      for (i=0; i<tag.length; i++) {
+        if(tag[i].nodeName == "a") {
+          
+          // Does link already exist in array?
+          url = tag[i].getAttribute("href");
+          
+          if (tag[i].firstChild != null) {
+            linkTitle = tag[i].firstChild.nodeValue;
+          } else {
+            linkTitle = "";
+          }
+          
+          if(!(url in bookmarks)) {
+            // If link does not exit, create add to array
+            bookmarks[url] = { title: linkTitle, href: url, addDate: tag[i].getAttribute("add_date"), tags: currentTags };
+          } else {
+            // If link exists, add tag
+            bookmarks[url].tags += ","+currentTags;
+          }
+              
+        } else if (tag[i].nodeName == "h3") {
+          // Error messages, possibly from parser.
+          if (tag[i].firstChild != null && tag[i].firstChild.nodeValue != "Below is a rendering of the page up to the first error." && tag[i].firstChild.nodeValue != "This page contains the following errors:") {
+            currentTags = tag[i].firstChild.nodeValue;
+          }
+        }
+      }
+
+      // Generate final export
+      outputHtml = "<!DOCTYPE NETSCAPE-Bookmark-file-1>\r\n" +
+        "<META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; charset=UTF-8\">\r\n" +
+        "<!-- This is an automatically generated file.\r\n" +
+        "It will be read and overwritten.\r\n" +
+        "Do Not Edit! -->\r\n" +
+        "<TITLE>Bookmarks</TITLE>\r\n" +
+        "<H1>Bookmarks</H1>\r\n" +
+        "<DL><p>\r\n";
+
+      for(var key in bookmarks){
+          // To ensure format and compabitility, create HTML by wrote even though it's not valid HTML5.
+          outputHtml += "<DT><A HREF=\"" + bookmarks[key].href + "\" ADD_DATE=\"" + bookmarks[key].addDate +"\" TAGS=\"" + bookmarks[key].tags + "\">" + bookmarks[key].title + "</A>\r\n";
+      }
+      outputHtml += "</DL><p>"
+
+      // Save final output
+      var filename = "derefind-export.html"
+      var blob = new Blob([outputHtml], {type: "text/html;charset=utf-8"});
+      saveAs(blob, filename);
+      }
+
+      // This loads the file
+      function handleFileSelect() {
+
+      var files = document.getElementById('fileInput').files;
+      if (!files.length) {
+        alert('Please select a file!');
+        return;
+      }
+
+      var refindExport = files[0];
+      var reader = new FileReader();
+
+      // Function to load file, then process tags when done.
+      reader.onloadend = function(evt) {
+        if (evt.target.readyState == FileReader.DONE) { // DONE == 2
+          parser=new DOMParser();
+          htmlDoc=parser.parseFromString(evt.target.result, "text/xml");
+          var docTags = htmlDoc.getElementsByTagName('*');
+          processTags(docTags);
+        }
+      };
+
+      reader.readAsBinaryString(refindExport);
+      }
+
+      // Automatically parse file once selected
+      document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
+    </script>
+  </body>
+</html>
