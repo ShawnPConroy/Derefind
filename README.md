@@ -4,7 +4,7 @@ This JavaScript application processes your [Refind](https://refind.com) export f
 
  ## How To Use It 
 
-Use it on [this demo server](http://partialsolution.ca/derefind/) or simply [download the latest source code ZIP from GitHub open the `index.html` file on your computer](https://github.com/ShawnPConroy/Derefind/releases).
+Use it on [this demo server](http://demo.partialsolution.ca/derefind/) or simply [download the latest source code ZIP from GitHub open the `index.html` file on your computer](https://github.com/ShawnPConroy/Derefind/releases).
 
 ## Requirements
 
